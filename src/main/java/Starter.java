@@ -1,8 +1,8 @@
-import util.MySqlDB;
+import util.DBUtil;
 
 public class Starter {
     public static void main(String[] args) {
-        MySqlDB mySql = new MySqlDB();
+        DBUtil mySql = new DBUtil();
         mySql.DBConnection();
         mySql.CloseDBConnection();
 
