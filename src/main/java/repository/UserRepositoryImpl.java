@@ -5,9 +5,8 @@ import util.DBUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl implements UserRepository<User, Integer> {
 
     DBUtil dbUtil = new DBUtil();
 
@@ -23,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.getLastName() + "' AND region='" + user.getRegion().getName() + "';";
 
         ResultSet resultSet = dbUtil.retrieveData(userId);
-        int id=0;
+        int id = 0;
         try {
             resultSet.next();
             id = resultSet.getInt("id");
@@ -36,32 +35,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void create(User user) {
-
-    }
-
-    @Override
-    public User getById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public List<User> getAll() {
-        return null;
-    }
-
-    @Override
-    public List<User> getById() {
-        return null;
-    }
-
-    @Override
     public void deleteById(Integer id) {
-
+        dbUtil.setConnection();
+        String delete = "DELETE FROM User WHERE id=" + id + ";";
+        dbUtil.executeStatement(delete);
+        dbUtil.closeConnection();
     }
 
-    @Override
-    public void updateById(Integer id) {
-
-    }
 }

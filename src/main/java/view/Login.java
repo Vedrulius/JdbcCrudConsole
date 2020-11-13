@@ -15,7 +15,7 @@ public class Login {
 
     public Login() {
         System.out.println(loginMessage);
-        int id = 0;
+        int userId = 0;
         if (sc.nextLine().equals("1")) {
             System.out.println("Enter your firstname: ");
             String name = sc.nextLine();
@@ -23,8 +23,10 @@ public class Login {
             String surname = sc.nextLine();
             System.out.println("Enter your region: ");
             String region = sc.nextLine();
-            id = userController.saveUser(new User(name, surname, new Region(region)));
-            new Menu().runMenu(id);
+            userId = userController.saveUser(new User(name, surname, new Region(region)));
+            new Menu().runMenu(userId);
+        } else {
+            System.out.println("Good by!");
         }
     }
 }

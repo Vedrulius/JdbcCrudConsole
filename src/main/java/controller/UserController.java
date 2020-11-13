@@ -11,4 +11,8 @@ public class UserController {
     public int saveUser(User user) {
         return userRepository.save(user);
     }
+
+    public void deleteUser(int id) {
+        userRepository.deleteById(id);
+    }
 }
