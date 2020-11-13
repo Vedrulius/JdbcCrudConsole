@@ -10,6 +10,13 @@ public class User {
     private List<Post> post;
     private Region region;
 
+
+    public User(String firstName, String lastName, Region region) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.region = region;
+    }
+
     public int getId() {
         return id;
     }

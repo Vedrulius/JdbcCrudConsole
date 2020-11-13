@@ -1,7 +1,9 @@
 package repository;
 
+import model.Post;
+
 import java.util.List;
 
-public interface PostRepository<Post, Integer> {
-    List<Post> getAllPost();
+public interface PostRepository extends PostServiceRepository<Post, Integer> {
+
 }
