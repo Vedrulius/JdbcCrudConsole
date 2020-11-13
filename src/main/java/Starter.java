@@ -1,10 +1,7 @@
-import util.DBUtil;
+import view.Login;
 
 public class Starter {
     public static void main(String[] args) {
-        DBUtil mySql = new DBUtil();
-        mySql.DBConnection();
-        mySql.CloseDBConnection();
-
+        new Login();
     }
 }
