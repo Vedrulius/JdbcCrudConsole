@@ -1,7 +1,7 @@
 package com.mihey.jdbcconsole.view;
 
-import com.mihey.jdbcconsole.controller.PostController;
-import com.mihey.jdbcconsole.controller.UserController;
+import com.mihey.jdbcconsole.PostController;
+import com.mihey.jdbcconsole.UserController;
 import com.mihey.jdbcconsole.model.Post;
 
 import java.util.Scanner;

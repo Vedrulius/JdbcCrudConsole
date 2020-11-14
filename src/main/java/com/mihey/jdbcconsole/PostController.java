@@ -1,4 +1,4 @@
-package com.mihey.jdbcconsole.controller;
+package com.mihey.jdbcconsole;
 
 import com.mihey.jdbcconsole.model.Post;
 import com.mihey.jdbcconsole.repository.PostRepository;
