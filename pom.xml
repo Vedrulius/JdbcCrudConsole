@@ -28,7 +28,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Starter</mainClass>
+                            <mainClass>App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
