@@ -6,7 +6,7 @@ import com.mihey.jdbcconsole.repository.UserRepositoryImpl;
 
 public class UserController {
 
-    private UserRepository userRepository = new UserRepositoryImpl();
+    private final UserRepository<User, Integer> userRepository = new UserRepositoryImpl();
 
     public int saveUser(User user) {
         return userRepository.save(user);

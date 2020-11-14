@@ -6,7 +6,7 @@ import com.mihey.jdbcconsole.repository.PostRepositoryImpl;
 
 public class PostController {
 
-    private PostRepository postRepository = new PostRepositoryImpl();
+    private final PostRepository<Post, Integer> postRepository = new PostRepositoryImpl();
 
     public void createPost(Post post) {
         postRepository.create(post);
