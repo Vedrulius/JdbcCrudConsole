@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="Mihey" id="1">
+        <createTable tableName="Post">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="Content" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="Created" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="Updated" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UserId" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Mihey" id="2">
+        <createTable tableName="Region">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Mihey" id="3">
+        <createTable tableName="User">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="FirstName" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LastName" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Mihey" id="4">
+        <addUniqueConstraint columnNames="FirstName, LastName, region" constraintName="FirstName" tableName="User"/>
+    </changeSet>
+    <changeSet author="Mihey" id="5">
+        <createIndex indexName="fk_User" tableName="Post">
+            <column name="UserId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Mihey" id="6">
+        <addForeignKeyConstraint baseColumnNames="UserId" baseTableName="Post" constraintName="fk_User"
+                                 deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="id" referencedTableName="User" validate="true"/>
+    </changeSet>
+    <changeSet author="Mihey" id="7">
+
+    </changeSet>
+</databaseChangeLog>
