@@ -1,4 +1,4 @@
-package com.mihey.jdbcconsole;
+package com.mihey.jdbcconsole.controller;
 
 import com.mihey.jdbcconsole.model.User;
 import com.mihey.jdbcconsole.repository.UserRepository;

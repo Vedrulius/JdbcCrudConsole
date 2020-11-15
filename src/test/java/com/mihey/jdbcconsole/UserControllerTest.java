@@ -1,5 +1,6 @@
 package com.mihey.jdbcconsole;
 
+import com.mihey.jdbcconsole.controller.UserController;
 import com.mihey.jdbcconsole.model.Region;
 import com.mihey.jdbcconsole.model.User;
 import org.junit.After;

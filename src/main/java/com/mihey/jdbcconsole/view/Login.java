@@ -1,6 +1,6 @@
 package com.mihey.jdbcconsole.view;
 
-import com.mihey.jdbcconsole.UserController;
+import com.mihey.jdbcconsole.controller.UserController;
 import com.mihey.jdbcconsole.model.Region;
 import com.mihey.jdbcconsole.model.User;
 
