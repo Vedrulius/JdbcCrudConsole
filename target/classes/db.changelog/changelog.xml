@@ -62,7 +62,82 @@
                                  deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
                                  referencedColumnNames="id" referencedTableName="User" validate="true"/>
     </changeSet>
-    <changeSet author="Mihey" id="7">
-
+    <changeSet author="mihey (generated)" id="1605388468884-3">
+        <insert tableName="User">
+            <column name="id" valueNumeric="1"/>
+            <column name="FirstName" value="Ivan"/>
+            <column name="LastName" value="Ivanov"/>
+            <column name="region" value="Russia"/>
+        </insert>
+        <insert tableName="User">
+            <column name="id" valueNumeric="2"/>
+            <column name="FirstName" value="Jon"/>
+            <column name="LastName" value="Doe"/>
+            <column name="region" value="USA"/>
+        </insert>
     </changeSet>
+    <changeSet author="mihey (generated)" id="1605389655830-3">
+        <insert tableName="User">
+            <column name="id" valueNumeric="4"/>
+            <column name="FirstName" value="George"/>
+            <column name="LastName" value="Orwell"/>
+            <column name="region" value="GB"/>
+        </insert>
+    </changeSet>
+    <changeSet author="mihey (generated)" id="1605388468884-1">
+        <insert tableName="Post">
+            <column name="id" valueNumeric="1"/>
+            <column name="Content" value="From Russia with love!"/>
+            <column name="Created" valueDate="2020-11-14T22:10:43"/>
+            <column name="Updated" valueDate="2020-11-14T22:10:43"/>
+            <column name="UserId" valueNumeric="1"/>
+        </insert>
+        <insert tableName="Post">
+            <column name="id" valueNumeric="2"/>
+            <column name="Content" value="Make America great again!"/>
+            <column name="Created" valueDate="2020-11-14T23:37:04"/>
+            <column name="Updated" valueDate="2020-11-14T23:37:04"/>
+            <column name="UserId" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+    <changeSet author="mihey (generated)" id="1605388468884-2">
+        <insert tableName="Region">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Russia"/>
+        </insert>
+        <insert tableName="Region">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="USA"/>
+        </insert>
+    </changeSet>
+    <changeSet author="mihey (generated)" id="1605389655830-1">
+        <insert tableName="Post">
+            <column name="id" valueNumeric="4"/>
+            <column name="Content" value="Who controls the past controls the future."/>
+            <column name="Created" valueDate="2020-11-15T00:27:41"/>
+            <column name="Updated" valueDate="2020-11-15T00:27:41"/>
+            <column name="UserId" valueNumeric="4"/>
+        </insert>
+        <insert tableName="Post">
+            <column name="id" valueNumeric="5"/>
+            <column name="Content" value="War is peace."/>
+            <column name="Created" valueDate="2020-11-15T00:28:15"/>
+            <column name="Updated" valueDate="2020-11-15T00:28:15"/>
+            <column name="UserId" valueNumeric="4"/>
+        </insert>
+        <insert tableName="Post">
+            <column name="id" valueNumeric="6"/>
+            <column name="Content" value="All animals are equal, but some animals are more equal than others."/>
+            <column name="Created" valueDate="2020-11-15T00:28:40"/>
+            <column name="Updated" valueDate="2020-11-15T00:28:40"/>
+            <column name="UserId" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+    <changeSet author="mihey (generated)" id="1605389655830-2">
+        <insert tableName="Region">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="GB"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>

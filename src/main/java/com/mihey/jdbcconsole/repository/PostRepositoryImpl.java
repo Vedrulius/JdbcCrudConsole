@@ -59,10 +59,14 @@ public class PostRepositoryImpl implements PostRepository<Post, Integer> {
         int rowId = 1;
         try {
             dbUtil.setConnection();
-            String getPosts = "SELECT Content FROM Post;";
+            String getPosts = "select FirstName, LastName, Content, Created from Post " +
+                    "inner join User on User.id=Post.UserId;";
+            String format = "%-20s%s%n";
             ResultSet resultSet = dbUtil.retrieveData(getPosts);
             while (resultSet.next()) {
-                System.out.println(rowId + ": " + resultSet.getString("Content"));
+                System.out.printf(format, rowId + ": " + resultSet.getString("FirstName") + "  " +
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Content"));
                 rowId++;
             }
         } catch (SQLException e) {
