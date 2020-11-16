@@ -18,7 +18,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getById(Integer integer) {
+    public User getById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public User update(User user) {
         return null;
     }
 
@@ -28,8 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
         String saveUser = "INSERT IGNORE INTO User(FirstName, LastName, Region) VALUES ('" +
                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getName() + "');";
         dbUtil.executeStatement(saveUser);
-        String reg = "INSERT IGNORE INTO Region(name) VALUES ('" + user.getRegion().getName() + "');";
-        dbUtil.executeStatement(reg);
+
         String userId = "SELECT id FROM User WHERE FirstName='" + user.getFirstName() + "' AND LastName='" +
                 user.getLastName() + "' AND region='" + user.getRegion().getName() + "';";
 
@@ -43,12 +47,8 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
         dbUtil.closeConnection();
+        user.setId(id);
         return user;
-    }
-
-    @Override
-    public User update(User user) {
-        return null;
     }
 
     @Override

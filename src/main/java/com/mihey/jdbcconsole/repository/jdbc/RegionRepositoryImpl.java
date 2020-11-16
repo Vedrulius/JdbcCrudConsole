@@ -1,32 +1,55 @@
 package com.mihey.jdbcconsole.repository.jdbc;
 
-import com.mihey.jdbcconsole.repository.GenericRepository;
+import com.mihey.jdbcconsole.model.Region;
+import com.mihey.jdbcconsole.repository.RegionRepository;
+import com.mihey.jdbcconsole.util.DBUtil;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
-public class RegionRepositoryImpl implements GenericRepository {
+public class RegionRepositoryImpl implements RegionRepository {
+
+    DBUtil dbUtil = new DBUtil();
+
+
     @Override
-    public List getAll() {
+    public List<Region> getAll() {
         return null;
     }
 
     @Override
-    public Object getById(Object o) {
+    public Region getById(Integer integer) {
         return null;
     }
 
     @Override
-    public Object save(Object o) {
+    public Region save(Region region) {
+        dbUtil.setConnection();
+        String reg = "INSERT IGNORE INTO Region(name) VALUES ('" + region.getName() + "');";
+        dbUtil.executeStatement(reg);
+        String regionId = "SELECT id FROM Region WHERE region='" + region.getName() + "';";
+        ResultSet resultSet = dbUtil.retrieveData(regionId);
+        int id = 0;
+        try {
+            resultSet.next();
+            id = resultSet.getInt("id");
+        } catch (SQLException e) {
+            System.out.println("something wrong");
+            e.printStackTrace();
+        }
+        dbUtil.closeConnection();
+        region.setId(id);
+        return region;
+    }
+
+    @Override
+    public Region update(Region region) {
         return null;
     }
 
     @Override
-    public Object update(Object o) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(Object o) {
+    public void deleteById(Integer integer) {
 
     }
 }
