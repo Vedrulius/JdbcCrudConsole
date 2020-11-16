@@ -1,16 +1,6 @@
 package com.mihey.jdbcconsole.repository;
 
-public interface PostRepository<Post, Integer> {
+import com.mihey.jdbcconsole.model.Post;
 
-    void create(Post post);
-
-    void showAll();
-
-    void showAllById(Integer id);
-
-    void getById(Integer id);
-
-    void deleteById(Integer id);
-
-    void updateById(Integer id, String post);
+public interface PostRepository extends GenericRepository<Post, Integer> {
 }

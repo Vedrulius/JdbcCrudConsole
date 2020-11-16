@@ -1,7 +1,7 @@
 package com.mihey.jdbcconsole.model;
 
 public class Region {
-    private int id;
+    private Integer id;
     private String name;
 
     public Region(String name) {

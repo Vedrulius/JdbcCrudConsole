@@ -1,7 +1,7 @@
 package com.mihey.jdbcconsole.repository;
 
-public interface UserRepository<User, Integer> {
+import com.mihey.jdbcconsole.model.User;
 
-    int save(User user);
-    void deleteById(Integer id);
+public interface UserRepository extends GenericRepository<User, Integer> {
+
 }
