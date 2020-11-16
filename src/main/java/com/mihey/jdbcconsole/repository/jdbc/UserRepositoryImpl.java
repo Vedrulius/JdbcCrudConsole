@@ -6,13 +6,24 @@ import com.mihey.jdbcconsole.util.DBUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-public class UserRepositoryImpl implements UserRepository<User, Integer> {
+public class UserRepositoryImpl implements UserRepository {
 
     DBUtil dbUtil = new DBUtil();
 
     @Override
-    public int save(User user) {
+    public List<User> getAll() {
+        return null;
+    }
+
+    @Override
+    public User getById(Integer integer) {
+        return null;
+    }
+
+    @Override
+    public User save(User user) {
         dbUtil.setConnection();
         String saveUser = "INSERT IGNORE INTO User(FirstName, LastName, Region) VALUES ('" +
                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getName() + "');";
@@ -32,7 +43,12 @@ public class UserRepositoryImpl implements UserRepository<User, Integer> {
             e.printStackTrace();
         }
         dbUtil.closeConnection();
-        return id;
+        return user;
+    }
+
+    @Override
+    public User update(User user) {
+        return null;
     }
 
     @Override

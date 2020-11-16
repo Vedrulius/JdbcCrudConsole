@@ -6,18 +6,18 @@ import com.mihey.jdbcconsole.repository.jdbc.PostRepositoryImpl;
 
 public class PostController {
 
-    private final PostRepository<Post, Integer> postRepository = new PostRepositoryImpl();
+    private final PostRepository postRepository = new PostRepositoryImpl();
 
     public void createPost(Post post) {
-        postRepository.create(post);
+        postRepository.save(post);
     }
 
     public void getPostsByUser(int id) {
         postRepository.getById(id);
     }
 
-    public void editPost(int id, String post) {
-        postRepository.updateById(id, post);
+    public void editPost(Post post) {
+        postRepository.update(post);
     }
 
     public void deletePostById(int id) {
@@ -25,10 +25,10 @@ public class PostController {
     }
 
     public void showAllPosts() {
-        postRepository.showAll();
+        postRepository.getAll();
     }
 
     public void showAllPostsByUser(int id) {
-        postRepository.showAllById(id);
+        postRepository.getById(id);
     }
 }

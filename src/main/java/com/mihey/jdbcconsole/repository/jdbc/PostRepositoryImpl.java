@@ -6,13 +6,14 @@ import com.mihey.jdbcconsole.util.DBUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-public class PostRepositoryImpl implements PostRepository<Post, Integer> {
+public class PostRepositoryImpl implements PostRepository {
 
     DBUtil dbUtil = new DBUtil();
 
     @Override
-    public void create(Post post) {
+    public Post save(Post post) {
         dbUtil.setConnection();
         String createPost = "INSERT IGNORE INTO Post(Content, UserId) VALUES ('" +
                 post.getContent() + "','" + post.getUserId() + "');";
@@ -20,10 +21,16 @@ public class PostRepositoryImpl implements PostRepository<Post, Integer> {
         dbUtil.executeStatement(createPost);
 
         dbUtil.closeConnection();
+        return null;
     }
 
     @Override
-    public void getById(Integer id) {
+    public List<Post> getAll() {
+        return null;
+    }
+
+    @Override
+    public Post getById(Integer id) {
         try {
             dbUtil.setConnection();
             String getPosts = "SELECT id,Content FROM Post WHERE UserId=" + id + ";";
@@ -36,15 +43,17 @@ public class PostRepositoryImpl implements PostRepository<Post, Integer> {
             e.printStackTrace();
         }
         dbUtil.closeConnection();
+        return null;
     }
 
     @Override
-    public void updateById(Integer id, String post) {
+    public Post update(Post post) {
         dbUtil.setConnection();
         String update = "UPDATE Post SET Content = '" +
-                post + "', Updated=now() WHERE id=" + id + ";";
+                post + "', Updated=now() WHERE id=" + post.getId() + ";";
         dbUtil.executeStatement(update);
         dbUtil.closeConnection();
+        return null;
     }
 
     @Override
@@ -55,7 +64,7 @@ public class PostRepositoryImpl implements PostRepository<Post, Integer> {
         dbUtil.closeConnection();
     }
 
-    @Override
+
     public void showAll() {
         int rowId = 1;
         try {
@@ -76,7 +85,7 @@ public class PostRepositoryImpl implements PostRepository<Post, Integer> {
         dbUtil.closeConnection();
     }
 
-    @Override
+
     public void showAllById(Integer id) {
         int rowId = 1;
         try {

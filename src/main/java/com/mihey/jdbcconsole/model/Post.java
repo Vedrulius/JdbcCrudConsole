@@ -45,4 +45,12 @@ public class Post {
     public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

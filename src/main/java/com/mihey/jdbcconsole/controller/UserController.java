@@ -6,10 +6,10 @@ import com.mihey.jdbcconsole.repository.jdbc.UserRepositoryImpl;
 
 public class UserController {
 
-    private final UserRepository<User, Integer> userRepository = new UserRepositoryImpl();
+    private final UserRepository userRepository = new UserRepositoryImpl();
 
 //    return UserId for created user
-    public int saveUser(User user) {
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 

@@ -72,7 +72,7 @@ public class Menu {
         sc.nextLine();
         System.out.println("Write new post: ");
         String post = sc.nextLine();
-        postController.editPost(postId, post);
+//        postController.editPost(post);
     }
 
     public void showPosts(int userId) {

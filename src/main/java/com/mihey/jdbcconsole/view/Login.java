@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class Login {
 
     private final Scanner sc = new Scanner(System.in);
+    private User user;
+    private Region region;
     private UserController userController = new UserController();
 
     private final String loginMessage = "1. Login:\n" + "2. Exit";
@@ -22,8 +24,10 @@ public class Login {
             System.out.println("Enter your lastname: ");
             String surname = sc.nextLine();
             System.out.println("Enter your region: ");
-            String region = sc.nextLine();
-            userId = userController.saveUser(new User(name, surname, new Region(region)));
+            String reg = sc.nextLine();
+            region = new Region(reg);
+            user = new User(name, surname, region);
+            userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);
         } else {
             System.out.println("Good by!");
