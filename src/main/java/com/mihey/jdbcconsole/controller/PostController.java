@@ -2,7 +2,7 @@ package com.mihey.jdbcconsole.controller;
 
 import com.mihey.jdbcconsole.model.Post;
 import com.mihey.jdbcconsole.repository.PostRepository;
-import com.mihey.jdbcconsole.repository.PostRepositoryImpl;
+import com.mihey.jdbcconsole.repository.jdbc.PostRepositoryImpl;
 
 public class PostController {
 

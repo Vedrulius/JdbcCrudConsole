@@ -9,6 +9,7 @@ public class User {
     private String lastName;
     private List<Post> post;
     private Region region;
+    private Role role;
 
 
     public User(String firstName, String lastName, Region region) {
@@ -57,6 +58,14 @@ public class User {
         this.region = region;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -65,6 +74,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", post=" + post +
                 ", region=" + region +
+                ", role=" + role +
                 '}';
     }
 }

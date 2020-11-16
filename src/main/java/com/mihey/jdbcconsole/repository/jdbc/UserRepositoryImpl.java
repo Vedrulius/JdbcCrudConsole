@@ -1,6 +1,7 @@
-package com.mihey.jdbcconsole.repository;
+package com.mihey.jdbcconsole.repository.jdbc;
 
 import com.mihey.jdbcconsole.model.User;
+import com.mihey.jdbcconsole.repository.UserRepository;
 import com.mihey.jdbcconsole.util.DBUtil;
 
 import java.sql.ResultSet;
