@@ -18,6 +18,15 @@ public class User {
         this.region = region;
     }
 
+    public User(Integer id, String firstName, String lastName, List<Post> post, Region region, Role role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.post = post;
+        this.region = region;
+        this.role = role;
+    }
+
     public int getId() {
         return id;
     }

@@ -8,7 +8,6 @@ public class RegionController {
 
     private final RegionRepository regionRepository = new RegionRepositoryImpl();
 
-
     public Region save(Region region) {
         return regionRepository.save(region);
     }

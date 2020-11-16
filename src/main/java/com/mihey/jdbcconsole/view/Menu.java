@@ -4,6 +4,8 @@ import com.mihey.jdbcconsole.controller.PostController;
 import com.mihey.jdbcconsole.controller.UserController;
 import com.mihey.jdbcconsole.model.Post;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -60,31 +62,33 @@ public class Menu {
     public void createPost(int id) {
         System.out.println("Write your post:");
         String post = sc.nextLine();
-        postController.createPost(new Post(id, post));
+        postController.createPost(new Post(post, id));
     }
 
     public void editPost(int userId) {
         System.out.println("=============================================");
-        postController.getPostsByUser(userId);
+        List<Post> posts = new ArrayList<>(postController.showAllPosts());
+        posts.stream().map(Post::getContent).forEach(System.out::println);
         System.out.println("=============================================");
         System.out.println("Choose post from above:");
         int postId = sc.nextInt();
         sc.nextLine();
         System.out.println("Write new post: ");
         String post = sc.nextLine();
-//        postController.editPost(post);
+        postController.editPost(new Post(postId, post));
     }
 
     public void showPosts(int userId) {
         System.out.println("1. View your posts\n2. View all posts");
         int answer = sc.nextInt();
-        if(answer==1){
+        List<Post> posts = new ArrayList<>(postController.showAllPosts());
+        if (answer == 1) {
             System.out.println("==========================================================================================");
-            postController.showAllPostsByUser(userId);
+            posts.stream().map(Post::getContent).forEach(System.out::println);
             System.out.println("==========================================================================================");
-        }else{
+        } else {
             System.out.println("==========================================================================================");
-            postController.showAllPosts();
+            posts.stream().map(Post::getContent).forEach(System.out::println);
             System.out.println("==========================================================================================");
         }
 
@@ -93,7 +97,8 @@ public class Menu {
 
     public void deletePost(int userId) {
         System.out.println("=============================================");
-        postController.getPostsByUser(userId);
+        List<Post> posts = new ArrayList<>(postController.showAllPosts());
+        posts.stream().map(post -> post.getId() + ". " + post.getContent()).forEach(System.out::println);
         System.out.println("=============================================");
         System.out.println("Choose post from above:");
         int postId = sc.nextInt();

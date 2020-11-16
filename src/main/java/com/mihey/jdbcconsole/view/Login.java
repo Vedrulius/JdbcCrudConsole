@@ -4,12 +4,16 @@ import com.mihey.jdbcconsole.controller.RegionController;
 import com.mihey.jdbcconsole.controller.UserController;
 import com.mihey.jdbcconsole.model.Region;
 import com.mihey.jdbcconsole.model.User;
+import com.mihey.jdbcconsole.util.DBUtil;
 
 import java.util.Scanner;
 
 public class Login {
 
     private final Scanner sc = new Scanner(System.in);
+    private String name;
+    private String surname;
+    private String regionName;
     private User user;
     private Region region;
     private UserController userController = new UserController();
@@ -21,18 +25,20 @@ public class Login {
         int userId = 0;
         if (sc.nextLine().equals("1")) {
             System.out.println("Enter your firstname: ");
-            String name = sc.nextLine();
+            name = sc.nextLine();
             System.out.println("Enter your lastname: ");
-            String surname = sc.nextLine();
+            surname = sc.nextLine();
             System.out.println("Enter your region: ");
-            String reg = sc.nextLine();
-            region = new Region(reg);
+            regionName = sc.nextLine();
+            region = new Region(regionName);
+            DBUtil.setConnection();
             regionController.save(region);
             user = new User(name, surname, region);
             userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);
         } else {
             System.out.println("Good by!");
+            DBUtil.closeConnection();
         }
     }
 }
