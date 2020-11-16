@@ -6,24 +6,38 @@ import java.sql.*;
 
 public class DBUtil {
 
-    Connection connection = null;
-    Statement statement = null;
-    ResultSet resultSet = null;
+    private static DBUtil dbUtil;
 
-    MysqlDataSource dataSource = new MysqlDataSource();
+    final static String URL = "jdbc:mysql://localhost/PostService?serverTimezone=Europe/Moscow";
+    final static String USERNAME = "admin";
+    final static String PASSWORD = "admin";
+    private static Connection connection = null;
+    private static Statement statement = null;
+    private static ResultSet resultSet = null;
+    final private static MysqlDataSource dataSource = new MysqlDataSource();
 
-    final String URL = "jdbc:mysql://localhost/PostService?serverTimezone=Europe/Moscow";
+    private DBUtil() {
+    }
 
-    public void setConnection() {
+    public static DBUtil getDbUtil() {
+        if (dbUtil == null) {
+            dbUtil = new DBUtil();
+        }
+        return dbUtil;
+    }
+
+
+
+    public static void setConnection() {
         dataSource.setUrl(URL);
         try {
-            connection = dataSource.getConnection("admin", "admin");
+            connection = dataSource.getConnection(USERNAME, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void closeConnection() {
+    public static void closeConnection() {
         try {
             if (connection != null) {
                 connection.close();
@@ -40,7 +54,7 @@ public class DBUtil {
         }
     }
 
-    public void executeStatement(String sqlStatement) {
+    public static void executeStatement(String sqlStatement) {
         try {
             statement = connection.createStatement();
             statement.executeUpdate(sqlStatement);
@@ -49,7 +63,7 @@ public class DBUtil {
         }
     }
 
-    public ResultSet retrieveData(String sqlStatement) {
+    public static ResultSet retrieveData(String sqlStatement) {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlStatement);

@@ -10,8 +10,6 @@ import java.util.List;
 
 public class RegionRepositoryImpl implements RegionRepository {
 
-    DBUtil dbUtil = new DBUtil();
-
 
     @Override
     public List<Region> getAll() {
@@ -25,11 +23,11 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region save(Region region) {
-        dbUtil.setConnection();
+//        dbUtil.setConnection();
         String reg = "INSERT IGNORE INTO Region(name) VALUES ('" + region.getName() + "');";
-        dbUtil.executeStatement(reg);
+        DBUtil.executeStatement(reg);
         String regionId = "SELECT id FROM Region WHERE region='" + region.getName() + "';";
-        ResultSet resultSet = dbUtil.retrieveData(regionId);
+        ResultSet resultSet = DBUtil.retrieveData(regionId);
         int id = 0;
         try {
             resultSet.next();
@@ -38,7 +36,7 @@ public class RegionRepositoryImpl implements RegionRepository {
             System.out.println("something wrong");
             e.printStackTrace();
         }
-        dbUtil.closeConnection();
+//        dbUtil.closeConnection();
         region.setId(id);
         return region;
     }

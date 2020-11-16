@@ -1,5 +1,6 @@
 package com.mihey.jdbcconsole.view;
 
+import com.mihey.jdbcconsole.controller.RegionController;
 import com.mihey.jdbcconsole.controller.UserController;
 import com.mihey.jdbcconsole.model.Region;
 import com.mihey.jdbcconsole.model.User;
@@ -12,7 +13,7 @@ public class Login {
     private User user;
     private Region region;
     private UserController userController = new UserController();
-
+    private RegionController regionController = new RegionController();
     private final String loginMessage = "1. Login:\n" + "2. Exit";
 
     public Login() {
@@ -26,6 +27,7 @@ public class Login {
             System.out.println("Enter your region: ");
             String reg = sc.nextLine();
             region = new Region(reg);
+            regionController.save(region);
             user = new User(name, surname, region);
             userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);

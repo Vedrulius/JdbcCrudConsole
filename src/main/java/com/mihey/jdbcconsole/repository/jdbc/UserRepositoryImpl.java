@@ -10,8 +10,6 @@ import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    DBUtil dbUtil = new DBUtil();
-
     @Override
     public List<User> getAll() {
         return null;
@@ -29,15 +27,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        dbUtil.setConnection();
+//        DBUtil.setConnection();
         String saveUser = "INSERT IGNORE INTO User(FirstName, LastName, Region) VALUES ('" +
                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getName() + "');";
-        dbUtil.executeStatement(saveUser);
+        DBUtil.executeStatement(saveUser);
 
         String userId = "SELECT id FROM User WHERE FirstName='" + user.getFirstName() + "' AND LastName='" +
                 user.getLastName() + "' AND region='" + user.getRegion().getName() + "';";
 
-        ResultSet resultSet = dbUtil.retrieveData(userId);
+        ResultSet resultSet = DBUtil.retrieveData(userId);
         int id = 0;
         try {
             resultSet.next();
@@ -46,17 +44,17 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println("something wrong");
             e.printStackTrace();
         }
-        dbUtil.closeConnection();
+//        DBUtil.closeConnection();
         user.setId(id);
         return user;
     }
 
     @Override
     public void deleteById(Integer id) {
-        dbUtil.setConnection();
+//        dbUtil.setConnection();
         String delete = "DELETE FROM User WHERE id=" + id + ";";
-        dbUtil.executeStatement(delete);
-        dbUtil.closeConnection();
+        DBUtil.executeStatement(delete);
+//        dbUtil.closeConnection();
     }
 
 }

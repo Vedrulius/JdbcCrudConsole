@@ -8,7 +8,6 @@ public class UserController {
 
     private final UserRepository userRepository = new UserRepositoryImpl();
 
-//    return UserId for created user
     public User saveUser(User user) {
         return userRepository.save(user);
     }
