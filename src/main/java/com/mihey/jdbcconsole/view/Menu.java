@@ -68,7 +68,7 @@ public class Menu {
     public void editPost(int userId) {
         System.out.println("=============================================");
         List<Post> posts = new ArrayList<>(postController.showAllPosts());
-        posts.stream().map(Post::getContent).forEach(System.out::println);
+        posts.stream().map(post -> post.getId() + ". " + post.getContent()).forEach(System.out::println);
         System.out.println("=============================================");
         System.out.println("Choose post from above:");
         int postId = sc.nextInt();
