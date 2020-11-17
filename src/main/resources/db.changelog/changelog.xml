@@ -73,7 +73,7 @@
             <column name="id" valueNumeric="2"/>
             <column name="FirstName" value="Jon"/>
             <column name="LastName" value="Doe"/>
-            <column name="region" valueNumeric="2"/>
+            <column name="regionId" valueNumeric="2"/>
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605389655830-3">
@@ -81,7 +81,7 @@
             <column name="id" valueNumeric="4"/>
             <column name="FirstName" value="George"/>
             <column name="LastName" value="Orwell"/>
-            <column name="region" valueNumeric="4"/>
+            <column name="regionId" valueNumeric="4"/>
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605388468884-1">
