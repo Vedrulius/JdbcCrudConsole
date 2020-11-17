@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
             while (resultSet.next()) {
                 users.add(new User(resultSet.getInt("id"), resultSet.getString("FirstName"),
                         resultSet.getString("LastName"), new ArrayList<>(),
-                        new Region(resultSet.getString("region")), Role.USER));
+                        new Region(resultSet.getInt("regionId")), Role.USER));
             }
         } catch (SQLException e) {
             System.out.println("something wrong");
@@ -37,9 +37,9 @@ public class UserRepositoryImpl implements UserRepository {
     public User getById(Integer id) {
 
         int userId = 0;
+        int region = 0;
         String name = "";
         String surname = "";
-        String region = "";
         String selectAll = "SELECT * FROM Users WHERE id=" + id + ";";
         ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
@@ -47,7 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
                 userId = resultSet.getInt("id");
                 name = resultSet.getString("FirstName");
                 surname = resultSet.getString("LastName");
-                region = resultSet.getString("region");
+                region = resultSet.getInt("regionId");
             }
         } catch (SQLException e) {
             System.out.println("something wrong");
@@ -60,7 +60,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User update(User user) {
         String update = "UPDATE Users SET FirstName = '" +
                 user.getFirstName() + "', LastName = '" + user.getLastName() +
-                "' region = '" + user.getRegion().getName() + "' WHERE id=" + user.getId() + ";";
+                "' regionId = '" + user.getRegion().getId() + "' WHERE id=" + user.getId() + ";";
         DBUtil.executeStatement(update);
 
         return getById(user.getId());
@@ -68,12 +68,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        String saveUser = "INSERT IGNORE INTO Users(FirstName, LastName, Region) VALUES ('" +
-                user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getName() + "');";
+        String saveUser = "INSERT IGNORE INTO Users(FirstName, LastName, regionId) VALUES ('" +
+                user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getId() + "');";
         DBUtil.executeStatement(saveUser);
 
         String userId = "SELECT id FROM Users WHERE FirstName='" + user.getFirstName() + "' AND LastName='" +
-                user.getLastName() + "' AND region='" + user.getRegion().getName() + "';";
+                user.getLastName() + "' AND regionId='" + user.getRegion().getId() + "';";
 
         ResultSet resultSet = DBUtil.retrieveData(userId);
         int id = 0;

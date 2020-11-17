@@ -44,13 +44,13 @@
             <column name="LastName" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="region" type="VARCHAR(50)">
+            <column name="regionId" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="Mihey" id="4">
-        <addUniqueConstraint columnNames="FirstName, LastName, region" constraintName="FirstName" tableName="Users"/>
+        <addUniqueConstraint columnNames="FirstName, LastName, regionId" constraintName="FirstName" tableName="Users"/>
     </changeSet>
     <changeSet author="Mihey" id="5">
         <createIndex indexName="fk_User" tableName="Posts">
@@ -67,13 +67,13 @@
             <column name="id" valueNumeric="1"/>
             <column name="FirstName" value="Ivan"/>
             <column name="LastName" value="Ivanov"/>
-            <column name="region" value="Russia"/>
+            <column name="regionId" valueNumeric="1"/>
         </insert>
         <insert tableName="Users">
             <column name="id" valueNumeric="2"/>
             <column name="FirstName" value="Jon"/>
             <column name="LastName" value="Doe"/>
-            <column name="region" value="USA"/>
+            <column name="region" valueNumeric="2"/>
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605389655830-3">
@@ -81,7 +81,7 @@
             <column name="id" valueNumeric="4"/>
             <column name="FirstName" value="George"/>
             <column name="LastName" value="Orwell"/>
-            <column name="region" value="GB"/>
+            <column name="region" valueNumeric="4"/>
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605388468884-1">
