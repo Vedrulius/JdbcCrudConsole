@@ -12,11 +12,7 @@ public class DBUtil {
     private static String url;
     private static String username;
     private static String password;
-    private static Connection connection = null;
-    private static Statement statement = null;
-    private static PreparedStatement prepStatement = null;
-    private static CallableStatement callStatement = null;
-    private static ResultSet resultSet = null;
+    private static Connection connection;
     final private static MysqlDataSource dataSource = new MysqlDataSource();
 
     private static void setProperties() {
@@ -63,68 +59,9 @@ public class DBUtil {
             if (connection != null) {
                 connection.close();
             }
-            if (statement != null) {
-                statement.close();
-            }
-            if (prepStatement != null) {
-                prepStatement.close();
-            }
-            if (callStatement != null) {
-                callStatement.close();
-            }
-            if (resultSet != null) {
-                resultSet.close();
-            }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static Statement getStatement(String sqlStatement) {
-        try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return statement;
-    }
-
-    public static PreparedStatement getPrepStatement(String sqlStatement) {
-        try {
-            prepStatement = connection.prepareStatement(sqlStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return prepStatement;
-    }
-
-    public static CallableStatement getCallStatement(String sqlStatement) {
-        try {
-            callStatement = connection.prepareCall(sqlStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return callStatement;
-    }
-
-    public static void executeStatement(String sqlStatement) {
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(sqlStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static ResultSet retrieveData(String sqlStatement) {
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sqlStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return resultSet;
     }
 }
 

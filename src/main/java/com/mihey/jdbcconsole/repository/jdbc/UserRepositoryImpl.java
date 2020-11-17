@@ -29,7 +29,6 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println("something wrong");
             e.printStackTrace();
         }
-
         return users;
     }
 
@@ -42,8 +41,8 @@ public class UserRepositoryImpl implements UserRepository {
         String name = "";
         String surname = "";
         String selectAll = "SELECT * FROM Users WHERE id=" + id + ";";
-        ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
+            ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
             while (resultSet.next()) {
                 userId = resultSet.getInt("id");
                 name = resultSet.getString("FirstName");
@@ -62,7 +61,11 @@ public class UserRepositoryImpl implements UserRepository {
         String update = "UPDATE Users SET FirstName = '" +
                 user.getFirstName() + "', LastName = '" + user.getLastName() +
                 "' regionId = '" + user.getRegion().getId() + "' WHERE id=" + user.getId() + ";";
-        DBUtil.executeStatement(update);
+        try {
+            connection.createStatement().executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return getById(user.getId());
     }
@@ -71,14 +74,14 @@ public class UserRepositoryImpl implements UserRepository {
     public User save(User user) {
         String saveUser = "INSERT IGNORE INTO Users(FirstName, LastName, regionId) VALUES ('" +
                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getId() + "');";
-        DBUtil.executeStatement(saveUser);
 
         String userId = "SELECT id FROM Users WHERE FirstName='" + user.getFirstName() + "' AND LastName='" +
                 user.getLastName() + "' AND regionId='" + user.getRegion().getId() + "';";
 
-        ResultSet resultSet = DBUtil.retrieveData(userId);
         int id = 0;
         try {
+            connection.createStatement().executeUpdate(saveUser);
+            ResultSet resultSet = connection.createStatement().executeQuery(userId);
             resultSet.next();
             id = resultSet.getInt("id");
         } catch (SQLException e) {
@@ -92,7 +95,11 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void deleteById(Integer id) {
         String delete = "DELETE FROM Users WHERE id=" + id + ";";
-        DBUtil.executeStatement(delete);
+        try {
+            connection.createStatement().executeUpdate(delete);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import com.mihey.jdbcconsole.model.Post;
 import com.mihey.jdbcconsole.repository.PostRepository;
 import com.mihey.jdbcconsole.util.DBUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -12,16 +13,19 @@ import java.util.List;
 
 public class PostRepositoryImpl implements PostRepository {
 
+    private final Connection connection = DBUtil.getConnection();
+
     @Override
     public Post save(Post post) {
         String createPost = "INSERT IGNORE INTO Posts(Content, UserId) VALUES ('" +
                 post.getContent() + "','" + post.getUserId() + "');";
-        DBUtil.executeStatement(createPost);
         String postId = "SELECT id FROM Posts WHERE UserId='" + post.getUserId() + "';";
 
-        ResultSet resultSet = DBUtil.retrieveData(postId);
         int id = 0;
+
         try {
+            connection.createStatement().executeUpdate(createPost);
+            ResultSet resultSet= connection.createStatement().executeQuery(postId);
             resultSet.next();
             id = resultSet.getInt("id");
         } catch (SQLException e) {
@@ -36,8 +40,8 @@ public class PostRepositoryImpl implements PostRepository {
     public List<Post> getAll() {
         List<Post> posts = new ArrayList<>();
         String selectAll = "SELECT * FROM Posts;";
-        ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
+            ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
             while (resultSet.next()) {
                 posts.add(new Post(resultSet.getInt("id"), resultSet.getInt("UserId"),
                         resultSet.getString("Content"),
@@ -59,7 +63,7 @@ public class PostRepositoryImpl implements PostRepository {
         Timestamp updated = new Timestamp(System.currentTimeMillis());
         String getPosts = "SELECT * FROM Posts WHERE id=" + id + ";";
         try {
-            ResultSet resultSet = DBUtil.retrieveData(getPosts);
+            ResultSet resultSet = connection.createStatement().executeQuery(getPosts);
             while (resultSet.next()) {
                 postId = resultSet.getInt("id");
                 userId = resultSet.getInt("UserId");
@@ -78,7 +82,11 @@ public class PostRepositoryImpl implements PostRepository {
     public Post update(Post post) {
         String update = "UPDATE Posts SET Content = '" +
                 post.getContent() + "', Updated=now() WHERE id=" + post.getId() + ";";
-        DBUtil.executeStatement(update);
+        try {
+            connection.createStatement().executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return getById(post.getId());
     }
@@ -86,6 +94,10 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public void deleteById(Integer id) {
         String delete = "DELETE FROM Posts WHERE id=" + id + ";";
-        DBUtil.executeStatement(delete);
+        try {
+            connection.createStatement().executeUpdate(delete);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

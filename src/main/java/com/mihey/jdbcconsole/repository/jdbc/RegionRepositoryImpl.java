@@ -4,6 +4,7 @@ import com.mihey.jdbcconsole.model.Region;
 import com.mihey.jdbcconsole.repository.RegionRepository;
 import com.mihey.jdbcconsole.util.DBUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,13 +12,14 @@ import java.util.List;
 
 public class RegionRepositoryImpl implements RegionRepository {
 
+    private final Connection connection = DBUtil.getConnection();
 
     @Override
     public List<Region> getAll() {
         List<Region> regions = new ArrayList<>();
         String selectAll = "SELECT * FROM Regions;";
-        ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
+            ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
             while (resultSet.next()) {
                 regions.add(new Region(resultSet.getInt("id"), resultSet.getString("name")));
             }
@@ -33,8 +35,8 @@ public class RegionRepositoryImpl implements RegionRepository {
         int regionId=0;
         String name="";
         String selectAll = "SELECT * FROM Regions WHERE id=" + id + ";";
-        ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
+            ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
             while (resultSet.next()) {
                 regionId=resultSet.getInt("id");
                 name = resultSet.getString("name");
@@ -49,11 +51,11 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Override
     public Region save(Region region) {
         String reg = "INSERT IGNORE INTO Regions(name) VALUES ('" + region.getName() + "');";
-        DBUtil.executeStatement(reg);
         String regionId = "SELECT id FROM Regions WHERE name='" + region.getName() + "';";
-        ResultSet resultSet = DBUtil.retrieveData(regionId);
         int id = 0;
         try {
+            connection.createStatement().executeUpdate(reg);
+            ResultSet resultSet=connection.createStatement().executeQuery(regionId);
             while(resultSet.next()){
             id = resultSet.getInt("id");}
         } catch (SQLException e) {
@@ -68,14 +70,21 @@ public class RegionRepositoryImpl implements RegionRepository {
     public Region update(Region region) {
         String update = "UPDATE Regions SET name = '" +
                 region.getName() + ";";
-        DBUtil.executeStatement(update);
-
+        try {
+            connection.createStatement().executeUpdate(update);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return getById(region.getId());
     }
 
     @Override
     public void deleteById(Integer id) {
         String delete = "DELETE FROM Regions WHERE id=" + id + ";";
-        DBUtil.executeStatement(delete);
+        try {
+            connection.createStatement().executeUpdate(delete);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

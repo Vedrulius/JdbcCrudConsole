@@ -16,8 +16,6 @@ public class Login {
     private String regionName;
     private User user;
     private Region region;
-    private UserController userController = new UserController();
-    private RegionController regionController = new RegionController();
     private final String loginMessage = "1. Login:\n" + "2. Exit";
 
     public Login() {
@@ -32,8 +30,10 @@ public class Login {
             regionName = sc.nextLine();
             region = new Region(regionName);
             DBUtil.setConnection();
+            RegionController regionController = new RegionController();
             regionController.save(region);
             user = new User(name, surname, region);
+            UserController userController = new UserController();
             userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);
         } else {
