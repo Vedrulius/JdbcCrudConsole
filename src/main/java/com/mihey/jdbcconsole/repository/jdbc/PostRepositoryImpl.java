@@ -103,8 +103,8 @@ public class PostRepositoryImpl implements PostRepository {
 
     public List<Post> getPostsByUserId(Integer id) {
         List<Post> posts = new ArrayList<>();
-        String select = "SELECT Posts.id,Content,Created,Updated FROM " +
-                "Posts INNER JOIN Users on Users.id=Posts.UserId WHERE Users.id=" + id + ";";
+        String select = "SELECT id,Content,Created,Updated FROM " +
+                "Posts WHERE userId=" + id + ";";
         int postId = 0;
         String content = "";
         Timestamp created = new Timestamp(System.currentTimeMillis());

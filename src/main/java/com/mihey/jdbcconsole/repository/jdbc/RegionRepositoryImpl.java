@@ -45,6 +45,9 @@ public class RegionRepositoryImpl implements RegionRepository {
             System.out.println("something wrong");
             e.printStackTrace();
         }
+        if (regionId==0) {
+            return null;
+        }
         return new Region(regionId,name);
     }
 
