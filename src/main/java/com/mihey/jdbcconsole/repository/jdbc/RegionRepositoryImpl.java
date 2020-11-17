@@ -15,7 +15,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Override
     public List<Region> getAll() {
         List<Region> regions = new ArrayList<>();
-        String selectAll = "SELECT * FROM Region;";
+        String selectAll = "SELECT * FROM Regions;";
         ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
             while (resultSet.next()) {
@@ -32,7 +32,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     public Region getById(Integer id) {
         int regionId=0;
         String name="";
-        String selectAll = "SELECT * FROM Region WHERE id=" + id + ";";
+        String selectAll = "SELECT * FROM Regions WHERE id=" + id + ";";
         ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
             while (resultSet.next()) {
@@ -48,9 +48,9 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region save(Region region) {
-        String reg = "INSERT IGNORE INTO Region(name) VALUES ('" + region.getName() + "');";
+        String reg = "INSERT IGNORE INTO Regions(name) VALUES ('" + region.getName() + "');";
         DBUtil.executeStatement(reg);
-        String regionId = "SELECT id FROM Region WHERE name='" + region.getName() + "';";
+        String regionId = "SELECT id FROM Regions WHERE name='" + region.getName() + "';";
         ResultSet resultSet = DBUtil.retrieveData(regionId);
         int id = 0;
         try {
@@ -66,7 +66,7 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region update(Region region) {
-        String update = "UPDATE Region SET name = '" +
+        String update = "UPDATE Regions SET name = '" +
                 region.getName() + ";";
         DBUtil.executeStatement(update);
 
@@ -75,7 +75,7 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public void deleteById(Integer id) {
-        String delete = "DELETE FROM Region WHERE id=" + id + ";";
+        String delete = "DELETE FROM Regions WHERE id=" + id + ";";
         DBUtil.executeStatement(delete);
     }
 }

@@ -20,25 +20,6 @@ public class DBUtil {
     private static ResultSet resultSet = null;
     final private static MysqlDataSource dataSource = new MysqlDataSource();
 
-    private static DBUtil dbUtil;
-
-    private DBUtil() {
-        setProperties();
-        dataSource.setUrl(url);
-        try {
-            connection = dataSource.getConnection(username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static DBUtil getDbUtil() {
-        if (dbUtil == null) {
-            dbUtil = new DBUtil();
-        }
-        return dbUtil;
-    }
-
     private static void setProperties() {
 
         try (InputStream resourceAsStream = DBUtil.class.getResourceAsStream("/application.properties")) {
@@ -64,15 +45,15 @@ public class DBUtil {
         }
     }
 
-//    public static void setConnection() {
-//        setProperties();
-//        dataSource.setUrl(url);
-//        try {
-//            connection = dataSource.getConnection(username, password);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void setConnection() {
+        setProperties();
+        dataSource.setUrl(url);
+        try {
+            connection = dataSource.getConnection(username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void closeConnection() {
         try {

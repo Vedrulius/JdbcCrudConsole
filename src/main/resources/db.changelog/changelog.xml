@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="Mihey" id="1">
-        <createTable tableName="Post">
+        <createTable tableName="Posts">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
@@ -24,7 +24,7 @@
         </createTable>
     </changeSet>
     <changeSet author="Mihey" id="2">
-        <createTable tableName="Region">
+        <createTable tableName="Regions">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
@@ -34,7 +34,7 @@
         </createTable>
     </changeSet>
     <changeSet author="Mihey" id="3">
-        <createTable tableName="User">
+        <createTable tableName="Users">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints primaryKey="true"/>
             </column>
@@ -50,26 +50,26 @@
         </createTable>
     </changeSet>
     <changeSet author="Mihey" id="4">
-        <addUniqueConstraint columnNames="FirstName, LastName, region" constraintName="FirstName" tableName="User"/>
+        <addUniqueConstraint columnNames="FirstName, LastName, region" constraintName="FirstName" tableName="Users"/>
     </changeSet>
     <changeSet author="Mihey" id="5">
-        <createIndex indexName="fk_User" tableName="Post">
+        <createIndex indexName="fk_User" tableName="Posts">
             <column name="UserId"/>
         </createIndex>
     </changeSet>
     <changeSet author="Mihey" id="6">
-        <addForeignKeyConstraint baseColumnNames="UserId" baseTableName="Post" constraintName="fk_User"
+        <addForeignKeyConstraint baseColumnNames="UserId" baseTableName="Posts" constraintName="fk_User"
                                  deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
-                                 referencedColumnNames="id" referencedTableName="User" validate="true"/>
+                                 referencedColumnNames="id" referencedTableName="Users" validate="true"/>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605388468884-3">
-        <insert tableName="User">
+        <insert tableName="Users">
             <column name="id" valueNumeric="1"/>
             <column name="FirstName" value="Ivan"/>
             <column name="LastName" value="Ivanov"/>
             <column name="region" value="Russia"/>
         </insert>
-        <insert tableName="User">
+        <insert tableName="Users">
             <column name="id" valueNumeric="2"/>
             <column name="FirstName" value="Jon"/>
             <column name="LastName" value="Doe"/>
@@ -77,7 +77,7 @@
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605389655830-3">
-        <insert tableName="User">
+        <insert tableName="Users">
             <column name="id" valueNumeric="4"/>
             <column name="FirstName" value="George"/>
             <column name="LastName" value="Orwell"/>
@@ -85,14 +85,14 @@
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605388468884-1">
-        <insert tableName="Post">
+        <insert tableName="Posts">
             <column name="id" valueNumeric="1"/>
             <column name="Content" value="From Russia with love!"/>
             <column name="Created" valueDate="2020-11-14T22:10:43"/>
             <column name="Updated" valueDate="2020-11-14T22:10:43"/>
             <column name="UserId" valueNumeric="1"/>
         </insert>
-        <insert tableName="Post">
+        <insert tableName="Posts">
             <column name="id" valueNumeric="2"/>
             <column name="Content" value="Make America great again!"/>
             <column name="Created" valueDate="2020-11-14T23:37:04"/>
@@ -101,31 +101,31 @@
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605388468884-2">
-        <insert tableName="Region">
+        <insert tableName="Regions">
             <column name="id" valueNumeric="1"/>
             <column name="name" value="Russia"/>
         </insert>
-        <insert tableName="Region">
+        <insert tableName="Regions">
             <column name="id" valueNumeric="2"/>
             <column name="name" value="USA"/>
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605389655830-1">
-        <insert tableName="Post">
+        <insert tableName="Posts">
             <column name="id" valueNumeric="4"/>
             <column name="Content" value="Who controls the past controls the future."/>
             <column name="Created" valueDate="2020-11-15T00:27:41"/>
             <column name="Updated" valueDate="2020-11-15T00:27:41"/>
             <column name="UserId" valueNumeric="4"/>
         </insert>
-        <insert tableName="Post">
+        <insert tableName="Posts">
             <column name="id" valueNumeric="5"/>
             <column name="Content" value="War is peace."/>
             <column name="Created" valueDate="2020-11-15T00:28:15"/>
             <column name="Updated" valueDate="2020-11-15T00:28:15"/>
             <column name="UserId" valueNumeric="4"/>
         </insert>
-        <insert tableName="Post">
+        <insert tableName="Posts">
             <column name="id" valueNumeric="6"/>
             <column name="Content" value="All animals are equal, but some animals are more equal than others."/>
             <column name="Created" valueDate="2020-11-15T00:28:40"/>
@@ -134,7 +134,7 @@
         </insert>
     </changeSet>
     <changeSet author="mihey (generated)" id="1605389655830-2">
-        <insert tableName="Region">
+        <insert tableName="Regions">
             <column name="id" valueNumeric="4"/>
             <column name="name" value="GB"/>
         </insert>

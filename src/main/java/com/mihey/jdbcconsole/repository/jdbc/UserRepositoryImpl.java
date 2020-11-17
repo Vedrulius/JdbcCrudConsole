@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        String selectAll = "SELECT * FROM User;";
+        String selectAll = "SELECT * FROM Users;";
         ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
             while (resultSet.next()) {
@@ -40,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
         String name = "";
         String surname = "";
         String region = "";
-        String selectAll = "SELECT * FROM User WHERE id=" + id + ";";
+        String selectAll = "SELECT * FROM Users WHERE id=" + id + ";";
         ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
             while (resultSet.next()) {
@@ -58,7 +58,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
-        String update = "UPDATE User SET FirstName = '" +
+        String update = "UPDATE Users SET FirstName = '" +
                 user.getFirstName() + "', LastName = '" + user.getLastName() +
                 "' region = '" + user.getRegion().getName() + "' WHERE id=" + user.getId() + ";";
         DBUtil.executeStatement(update);
@@ -68,11 +68,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        String saveUser = "INSERT IGNORE INTO User(FirstName, LastName, Region) VALUES ('" +
+        String saveUser = "INSERT IGNORE INTO Users(FirstName, LastName, Region) VALUES ('" +
                 user.getFirstName() + "','" + user.getLastName() + "','" + user.getRegion().getName() + "');";
         DBUtil.executeStatement(saveUser);
 
-        String userId = "SELECT id FROM User WHERE FirstName='" + user.getFirstName() + "' AND LastName='" +
+        String userId = "SELECT id FROM Users WHERE FirstName='" + user.getFirstName() + "' AND LastName='" +
                 user.getLastName() + "' AND region='" + user.getRegion().getName() + "';";
 
         ResultSet resultSet = DBUtil.retrieveData(userId);
@@ -90,7 +90,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteById(Integer id) {
-        String delete = "DELETE FROM User WHERE id=" + id + ";";
+        String delete = "DELETE FROM Users WHERE id=" + id + ";";
         DBUtil.executeStatement(delete);
     }
 

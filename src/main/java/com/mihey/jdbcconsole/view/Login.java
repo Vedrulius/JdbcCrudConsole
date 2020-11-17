@@ -31,7 +31,7 @@ public class Login {
             System.out.println("Enter your region: ");
             regionName = sc.nextLine();
             region = new Region(regionName);
-            DBUtil.getDbUtil();
+            DBUtil.setConnection();
             regionController.save(region);
             user = new User(name, surname, region);
             userId = userController.saveUser(user).getId();

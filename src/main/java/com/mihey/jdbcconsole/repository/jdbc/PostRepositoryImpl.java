@@ -14,10 +14,10 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        String createPost = "INSERT IGNORE INTO Post(Content, UserId) VALUES ('" +
+        String createPost = "INSERT IGNORE INTO Posts(Content, UserId) VALUES ('" +
                 post.getContent() + "','" + post.getUserId() + "');";
         DBUtil.executeStatement(createPost);
-        String postId = "SELECT id FROM Post WHERE UserId='" + post.getUserId() + "';";
+        String postId = "SELECT id FROM Posts WHERE UserId='" + post.getUserId() + "';";
 
         ResultSet resultSet = DBUtil.retrieveData(postId);
         int id = 0;
@@ -35,7 +35,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> getAll() {
         List<Post> posts = new ArrayList<>();
-        String selectAll = "SELECT * FROM Post;";
+        String selectAll = "SELECT * FROM Posts;";
         ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
             while (resultSet.next()) {
@@ -57,7 +57,7 @@ public class PostRepositoryImpl implements PostRepository {
         String content = "";
         Timestamp created = new Timestamp(System.currentTimeMillis());
         Timestamp updated = new Timestamp(System.currentTimeMillis());
-        String getPosts = "SELECT * FROM Post WHERE id=" + id + ";";
+        String getPosts = "SELECT * FROM Posts WHERE id=" + id + ";";
         try {
             ResultSet resultSet = DBUtil.retrieveData(getPosts);
             while (resultSet.next()) {
@@ -76,7 +76,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post update(Post post) {
-        String update = "UPDATE Post SET Content = '" +
+        String update = "UPDATE Posts SET Content = '" +
                 post.getContent() + "', Updated=now() WHERE id=" + post.getId() + ";";
         DBUtil.executeStatement(update);
 
@@ -85,7 +85,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public void deleteById(Integer id) {
-        String delete = "DELETE FROM Post WHERE id=" + id + ";";
+        String delete = "DELETE FROM Posts WHERE id=" + id + ";";
         DBUtil.executeStatement(delete);
     }
 }
