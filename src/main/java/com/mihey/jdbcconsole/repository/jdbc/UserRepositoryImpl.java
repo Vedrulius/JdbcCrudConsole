@@ -3,6 +3,8 @@ package com.mihey.jdbcconsole.repository.jdbc;
 import com.mihey.jdbcconsole.model.Region;
 import com.mihey.jdbcconsole.model.Role;
 import com.mihey.jdbcconsole.model.User;
+import com.mihey.jdbcconsole.repository.PostRepository;
+import com.mihey.jdbcconsole.repository.RegionRepository;
 import com.mihey.jdbcconsole.repository.UserRepository;
 import com.mihey.jdbcconsole.util.DBUtil;
 
@@ -13,17 +15,21 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     private final Connection connection = DBUtil.getConnection();
+    private final PostRepository postRepository = new PostRepositoryImpl();
+    private final RegionRepository regionRepository = new RegionRepositoryImpl();
 
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         String selectAll = "SELECT * FROM Users;";
+        int userId=0;
         try {
             ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
             while (resultSet.next()) {
-                users.add(new User(resultSet.getInt("id"), resultSet.getString("FirstName"),
-                        resultSet.getString("LastName"), new ArrayList<>(),
-                        new Region(resultSet.getInt("regionId")), Role.USER));
+                userId=resultSet.getInt("id");
+                users.add(new User(userId, resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"), postRepository.getPostsByUserId(userId),
+                        regionRepository.getById(resultSet.getInt("regionId")), Role.USER));
             }
         } catch (SQLException e) {
             System.out.println("something wrong");
@@ -31,7 +37,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return users;
     }
-
 
     @Override
     public User getById(Integer id) {

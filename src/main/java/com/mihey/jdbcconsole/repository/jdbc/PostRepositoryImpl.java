@@ -25,7 +25,7 @@ public class PostRepositoryImpl implements PostRepository {
 
         try {
             connection.createStatement().executeUpdate(createPost);
-            ResultSet resultSet= connection.createStatement().executeQuery(postId);
+            ResultSet resultSet = connection.createStatement().executeQuery(postId);
             resultSet.next();
             id = resultSet.getInt("id");
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class PostRepositoryImpl implements PostRepository {
             System.out.println("something wrong");
             e.printStackTrace();
         }
-        return new Post(postId,userId,content,created,updated);
+        return new Post(postId, userId, content, created, updated);
     }
 
     @Override
@@ -99,5 +99,30 @@ public class PostRepositoryImpl implements PostRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Post> getPostsByUserId(Integer id) {
+        List<Post> posts = new ArrayList<>();
+        String select = "SELECT Posts.id,Content,Created,Updated FROM " +
+                "Posts INNER JOIN Users on Users.id=Posts.UserId WHERE Users.id=" + id + ";";
+        int postId = 0;
+        String content = "";
+        Timestamp created = new Timestamp(System.currentTimeMillis());
+        Timestamp updated = new Timestamp(System.currentTimeMillis());
+
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery(select);
+            while (resultSet.next()) {
+                postId = resultSet.getInt("id");
+                content = resultSet.getString("Content");
+                created = resultSet.getTimestamp("Created");
+                updated = resultSet.getTimestamp("Updated");
+                posts.add(new Post(postId, id, content, created, updated));
+            }
+        } catch (SQLException e) {
+            System.out.println("something wrong");
+            e.printStackTrace();
+        }
+        return posts;
     }
 }

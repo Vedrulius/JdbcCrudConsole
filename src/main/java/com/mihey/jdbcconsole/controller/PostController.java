@@ -30,5 +30,9 @@ public class PostController {
         return postRepository.getAll();
     }
 
+    public List<Post> getPostsByUserId(Integer id) {
+        return postRepository.getPostsByUserId(id);
+    }
+
 }
 
