@@ -6,19 +6,20 @@ import com.mihey.jdbcconsole.model.User;
 import com.mihey.jdbcconsole.repository.UserRepository;
 import com.mihey.jdbcconsole.util.DBUtil;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
+    private final Connection connection = DBUtil.getConnection();
+
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         String selectAll = "SELECT * FROM Users;";
-        ResultSet resultSet = DBUtil.retrieveData(selectAll);
         try {
+            ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
             while (resultSet.next()) {
                 users.add(new User(resultSet.getInt("id"), resultSet.getString("FirstName"),
                         resultSet.getString("LastName"), new ArrayList<>(),

@@ -4,10 +4,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 public class DBUtil {
@@ -17,6 +14,8 @@ public class DBUtil {
     private static String password;
     private static Connection connection = null;
     private static Statement statement = null;
+    private static PreparedStatement prepStatement = null;
+    private static CallableStatement callStatement = null;
     private static ResultSet resultSet = null;
     final private static MysqlDataSource dataSource = new MysqlDataSource();
 
@@ -55,6 +54,10 @@ public class DBUtil {
         }
     }
 
+    public static Connection getConnection() {
+        return connection;
+    }
+
     public static void closeConnection() {
         try {
             if (connection != null) {
@@ -63,6 +66,12 @@ public class DBUtil {
             if (statement != null) {
                 statement.close();
             }
+            if (prepStatement != null) {
+                prepStatement.close();
+            }
+            if (callStatement != null) {
+                callStatement.close();
+            }
             if (resultSet != null) {
                 resultSet.close();
             }
@@ -70,6 +79,33 @@ public class DBUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Statement getStatement(String sqlStatement) {
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statement;
+    }
+
+    public static PreparedStatement getPrepStatement(String sqlStatement) {
+        try {
+            prepStatement = connection.prepareStatement(sqlStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return prepStatement;
+    }
+
+    public static CallableStatement getCallStatement(String sqlStatement) {
+        try {
+            callStatement = connection.prepareCall(sqlStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return callStatement;
     }
 
     public static void executeStatement(String sqlStatement) {
