@@ -20,7 +20,7 @@ public class DBUtil {
         try (InputStream resourceAsStream = DBUtil.class.getResourceAsStream("/application.properties")) {
             Properties properties = new Properties();
             if (resourceAsStream == null) {
-                System.out.println("Unable to find applications.properties, set default parameters.");
+                System.out.println("Unable to find application.properties, set default parameters.");
                 System.out.println("-----------------------------------------------------------------------");
                 url = "jdbc:mysql://localhost/PostService?serverTimezone=Europe/Moscow";
                 username = "admin";
