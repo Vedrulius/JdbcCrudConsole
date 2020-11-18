@@ -12,8 +12,8 @@ public class Menu {
 
     Scanner sc = new Scanner(System.in);
 
-    private PostController postController = new PostController();
-    private UserController userController = new UserController();
+    private final PostController postController = new PostController();
+    private final UserController userController = new UserController();
 
     private final String menuMessage = "Choose action:\n" +
             "1. Create Post\n" +

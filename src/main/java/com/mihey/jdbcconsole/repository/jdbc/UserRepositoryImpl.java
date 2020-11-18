@@ -20,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<User> getAll() {
+
         List<User> users = new ArrayList<>();
         String selectAll = "SELECT * FROM Users INNER JOIN Regions ON Users.regionId=Regions.id";
         int userId = 0;
@@ -37,6 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
             return null;
         }
+
         return users;
     }
 
