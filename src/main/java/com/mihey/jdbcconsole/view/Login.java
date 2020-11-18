@@ -31,7 +31,7 @@ public class Login {
             region = new Region(regionName);
             DBUtil.setConnection();
             RegionController regionController = new RegionController();
-            regionController.save(region);
+            regionController.saveRegion(region);
             user = new User(name, surname, region);
             UserController userController = new UserController();
             userId = userController.saveUser(user).getId();
