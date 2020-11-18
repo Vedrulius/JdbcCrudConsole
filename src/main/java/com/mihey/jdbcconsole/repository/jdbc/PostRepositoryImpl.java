@@ -74,6 +74,7 @@ public class PostRepositoryImpl implements PostRepository {
         } catch (SQLException e) {
             System.out.println("something wrong");
             e.printStackTrace();
+            return null;
         }
         return new Post(postId, userId, content, created, updated);
     }
@@ -82,13 +83,17 @@ public class PostRepositoryImpl implements PostRepository {
     public Post update(Post post) {
         String update = "UPDATE Posts SET Content = '" +
                 post.getContent() + "', Updated=now() WHERE id=" + post.getId() + ";";
+        String updated = "SELECT userId,Updated FROM Posts WHERE id=" + post.getId() + ";";
         try {
             connection.createStatement().executeUpdate(update);
+            ResultSet resultSet=connection.createStatement().executeQuery(updated);
+            if (resultSet.next()) {
+            post.setUserId(resultSet.getInt("userId"));
+            post.setUpdated(resultSet.getTimestamp("Updated"));}
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return getById(post.getId());
+        return post;
     }
 
     @Override
@@ -105,10 +110,10 @@ public class PostRepositoryImpl implements PostRepository {
         List<Post> posts = new ArrayList<>();
         String select = "SELECT id,Content,Created,Updated FROM " +
                 "Posts WHERE userId=" + id + ";";
-        int postId = 0;
-        String content = "";
-        Timestamp created = new Timestamp(System.currentTimeMillis());
-        Timestamp updated = new Timestamp(System.currentTimeMillis());
+        int postId;
+        String content;
+        Timestamp created;
+        Timestamp updated;
 
         try {
             ResultSet resultSet = connection.createStatement().executeQuery(select);

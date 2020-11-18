@@ -37,15 +37,13 @@ public class RegionRepositoryImpl implements RegionRepository {
         String selectAll = "SELECT * FROM Regions WHERE id=" + id + ";";
         try {
             ResultSet resultSet = connection.createStatement().executeQuery(selectAll);
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 regionId=resultSet.getInt("id");
                 name = resultSet.getString("name");
             }
         } catch (SQLException e) {
             System.out.println("something wrong");
             e.printStackTrace();
-        }
-        if (regionId==0) {
             return null;
         }
         return new Region(regionId,name);
@@ -59,7 +57,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         try {
             connection.createStatement().executeUpdate(reg);
             ResultSet resultSet=connection.createStatement().executeQuery(regionId);
-            while(resultSet.next()){
+            if(resultSet.next()){
             id = resultSet.getInt("id");}
         } catch (SQLException e) {
             System.out.println("something wrong");
@@ -78,7 +76,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return getById(region.getId());
+        return region;
     }
 
     @Override
