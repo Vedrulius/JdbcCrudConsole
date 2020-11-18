@@ -81,12 +81,14 @@ public class Menu {
     public void showPosts(int userId) {
         System.out.println("1. View your posts\n2. View all posts");
         int answer = sc.nextInt();
-        List<Post> posts = new ArrayList<>(postController.showAllPosts());
+        List<Post> posts;
         if (answer == 1) {
+            posts = new ArrayList<>(postController.getPostsByUserId(userId));
             System.out.println("==========================================================================================");
             posts.stream().map(Post::getContent).forEach(System.out::println);
             System.out.println("==========================================================================================");
         } else {
+            posts = new ArrayList<>(postController.showAllPosts());
             System.out.println("==========================================================================================");
             posts.stream().map(Post::getContent).forEach(System.out::println);
             System.out.println("==========================================================================================");
